@@ -8,6 +8,7 @@ import java.util.UUID;
 /**
  * Created by aschiff on 8/20/2014.
  */
+//crime class
 public class Crime {
     private UUID mId;
     private String mTitle;
