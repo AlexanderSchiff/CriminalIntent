@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">CriminalIntent</string>
-    <string name="title_activity_crime">CrimeActivity</string>
+    <string name="app_name">Criminal Intent</string>
+    <string name="title_activity_crime">Crime Activity</string>
     <string name="crime_title_hint">Enter a title for the crime.</string>
-    <string name="action_bar_subtitle">Crime Tracker</string>
+    <string name="action_bar_subtitle">Crime tracker</string>
     <string name="crime_title_label">Title</string>
     <string name="crime_details_label">Details</string>
     <string name="crime_solved_label">Solved?</string>
+    <string name="crimes_title">Crimes</string>
+    <string name="title_activity_single_fragment">Single Fragment Activity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_crime_list">Crime List Activity</string>
 
 </resources>

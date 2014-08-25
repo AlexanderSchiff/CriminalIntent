@@ -22,6 +22,11 @@ public class Crime {
         mDateString = (new DateFormat()).format("MM/dd/yyyy hh:mm", mDate).toString();
     }
 
+    @Override
+    public String toString() {
+        return getTitle();
+    }
+
     public UUID getId() {
         return mId;
     }
