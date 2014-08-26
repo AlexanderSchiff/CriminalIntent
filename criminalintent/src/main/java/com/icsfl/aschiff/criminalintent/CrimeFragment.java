@@ -1,7 +1,6 @@
 package com.icsfl.aschiff.criminalintent;
 
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -86,9 +85,5 @@ public class CrimeFragment extends Fragment {
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putString(KEY_INDEX, mDateButton.getText().toString());
-    }
-
-    public void returnResult() {
-        getActivity().setResult(Activity.RESULT_OK, null);
     }
 }

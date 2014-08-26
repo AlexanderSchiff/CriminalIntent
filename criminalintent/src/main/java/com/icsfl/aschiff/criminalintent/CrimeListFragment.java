@@ -13,7 +13,6 @@ import java.util.ArrayList;
  * Created by aschiff on 8/25/2014.
  */
 public class CrimeListFragment extends ListFragment {
-    private static final int REQUEST_CRIME = 1;
     private ArrayList<Crime> mCrimes;
 
     @Override
@@ -30,14 +29,7 @@ public class CrimeListFragment extends ListFragment {
         Crime crime = ((CrimeAdapter) getListAdapter()).getItem(position);
         Intent intent = new Intent(getActivity(), CrimePagerActivity.class);
         intent.putExtra(CrimeFragment.EXTRA_CRIME_ID, crime.getId());
-        startActivityForResult(intent, REQUEST_CRIME);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CRIME) {
-            ((CrimeAdapter) getListAdapter()).notifyDataSetChanged();
-        }
+        startActivity(intent);
     }
 
     @Override
