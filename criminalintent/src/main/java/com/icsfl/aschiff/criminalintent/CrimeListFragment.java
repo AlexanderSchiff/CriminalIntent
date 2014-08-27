@@ -29,6 +29,7 @@ public class CrimeListFragment extends ListFragment {
         mCrimes = CrimeLab.getCrimeLab(getActivity()).getCrimes();
         CrimeAdapter adapter = new CrimeAdapter(mCrimes);
         setListAdapter(adapter);
+        setRetainInstance(true);
     }
 
     /**
@@ -39,34 +40,27 @@ public class CrimeListFragment extends ListFragment {
         Crime crime = ((CrimeAdapter) getListAdapter()).getItem(position);
         Intent intent = new Intent(getActivity(), CrimePagerActivity.class);
         intent.putExtra(CrimeFragment.EXTRA_CRIME_ID, crime.getId());
-        startActivity(intent);
+        startActivityForResult(intent, 0);
     }
+
 
     /**
      *
      */
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         ((CrimeAdapter) getListAdapter()).notifyDataSetChanged();
     }
 
-    /**
-     *
-     */
     private class CrimeAdapter extends ArrayAdapter<Crime> {
         public CrimeAdapter(ArrayList<Crime> crimes) {
             super(getActivity(), android.R.layout.simple_list_item_1, crimes);
         }
 
-        /**
-         *
-         */
         @Override
         public View getView(int position, View convertView, ViewGroup Parent) {
-            if (convertView == null) {
+            if (convertView == null)
                 convertView = getActivity().getLayoutInflater().inflate(R.layout.list_item_crime, null);
-            }
             Crime crime = getItem(position);
             TextView titleTextView = (TextView) convertView.findViewById(R.id.crime_list_item_title_text_view);
             titleTextView.setText(crime.getTitle());
@@ -74,12 +68,6 @@ public class CrimeListFragment extends ListFragment {
             dateTextView.setText(crime.getDateString());
             CheckBox solvedCheckBox = (CheckBox) convertView.findViewById(R.id.crime_list_item_solved_check_box);
             solvedCheckBox.setChecked(crime.isSolved());
-/*            solvedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    crime.setSolved(isChecked);
-                }
-            });*/
             return convertView;
         }
     }

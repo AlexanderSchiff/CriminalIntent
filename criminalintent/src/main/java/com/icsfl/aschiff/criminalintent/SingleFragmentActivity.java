@@ -11,7 +11,7 @@ public abstract class SingleFragmentActivity extends FragmentActivity {
     protected abstract Fragment createFragment();
 
     /**
-     * @param savedInstanceState
+     *
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

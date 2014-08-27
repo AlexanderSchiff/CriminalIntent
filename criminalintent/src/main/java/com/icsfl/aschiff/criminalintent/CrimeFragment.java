@@ -68,12 +68,12 @@ public class CrimeFragment extends Fragment {
         mTitleField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
-                mCrime.setTitle(charSequence.toString());
+
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-
+                mCrime.setTitle(charSequence.toString());
             }
 
             @Override
