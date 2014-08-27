@@ -6,13 +6,17 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 /**
- * Created by aschiff on 8/25/2014.
+ * @author Alex Schiff
+ * @version 1.0
  */
 public class CrimeLab {
     private static CrimeLab sCrimeLab;
     private ArrayList<Crime> mCrimes;
     private Context mAppContext;
 
+    /**
+     * @param appContext
+     */
     private CrimeLab(Context appContext) {
         mAppContext = appContext;
         mCrimes = new ArrayList<Crime>();
@@ -24,6 +28,10 @@ public class CrimeLab {
         }
     }
 
+    /**
+     * @param context
+     * @return
+     */
     public static CrimeLab getCrimeLab(Context context) {
         if (sCrimeLab == null) {
             sCrimeLab = new CrimeLab(context.getApplicationContext());
@@ -31,10 +39,17 @@ public class CrimeLab {
         return sCrimeLab;
     }
 
+    /**
+     * @return
+     */
     public ArrayList<Crime> getCrimes() {
         return mCrimes;
     }
 
+    /**
+     * @param id
+     * @return
+     */
     public Crime getCrime(UUID id) {
         for (Crime crime : mCrimes) {
             if (crime.getId().equals(id))

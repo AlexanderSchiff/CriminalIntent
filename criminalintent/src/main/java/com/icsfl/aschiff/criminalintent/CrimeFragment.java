@@ -1,6 +1,5 @@
 package com.icsfl.aschiff.criminalintent;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -15,15 +14,30 @@ import android.widget.EditText;
 
 import java.util.UUID;
 
-// crime fragment class
+/**
+ * CrimeFragment is the Fragment that handles the UI for entering/managing a particular Crime.
+ *
+ * @author Alex Schiff
+ * @version 1.0
+ */
 public class CrimeFragment extends Fragment {
+    /**
+     * EXTRA_CRIME_ID is a static String. I am not exactly sure why it is necessary.
+     */
     public static final String EXTRA_CRIME_ID = "com.icsfl.aschiff.criminalintent.crime_id";
+
     private static final String KEY_INDEX = "index";
     private Crime mCrime;
     private EditText mTitleField;
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
 
+    /**
+     * This method creates a new CrimeFragment given a UUID.
+     *
+     * @param crimeId is the input UUID that is tied to a particular Crime.
+     * @return the created CrimeFragment.
+     */
     public static CrimeFragment newInstance(UUID crimeId) {
         Bundle args = new Bundle();
         args.putSerializable(EXTRA_CRIME_ID, crimeId);
@@ -32,6 +46,9 @@ public class CrimeFragment extends Fragment {
         return fragment;
     }
 
+    /**
+     * When the app is created, initialize the correct associated Crime.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +56,9 @@ public class CrimeFragment extends Fragment {
         mCrime = CrimeLab.getCrimeLab(getActivity()).getCrime(crimeId);
     }
 
+    /**
+     *
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_crime, parent, false);
@@ -81,6 +101,9 @@ public class CrimeFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Save the date associated with the date button.
+     */
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
