@@ -15,12 +15,15 @@ public class CrimeLab {
     private Context mAppContext;
 
     /**
-     * @param appContext
+     * Initializes the CrimeLab. We set the private variable mAppContext to be the input
+     * and generate an array list of Crimes.
+     *
+     * @param appContext sets CrimeLab's context to the input.
      */
     private CrimeLab(Context appContext) {
         mAppContext = appContext;
         mCrimes = new ArrayList<Crime>();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             Crime crime = new Crime();
             crime.setTitle("Crime #" + i);
             mCrimes.add(crime);

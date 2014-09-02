@@ -29,12 +29,20 @@
               android:layout_below="@+id/crime_details"
               android:layout_alignParentRight="false"
               android:textAlignment="center" android:layout_alignParentEnd="true"
-              android:layout_alignBottom="@+id/crime_date" android:paddingRight="12dp" android:paddingLeft="4dp"
+              android:layout_alignBottom="@+id/crime_date_time_buttons" android:paddingRight="12dp"
+              android:paddingLeft="4dp"
               android:paddingTop="4dp" android:paddingBottom="4dp" android:focusable="false"/>
-    <Button android:id="@+id/crime_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/crime_details"
-            android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@id/crime_solved"/>
+    <LinearLayout android:id="@+id/crime_date_time_buttons"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_below="@id/crime_details"
+                  android:layout_alignParentLeft="true"
+                  android:layout_toLeftOf="@id/crime_solved" android:weightSum="1">
+        <Button android:id="@+id/crime_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:layout_weight="0.5"/>
+        <Button android:id="@+id/crime_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:layout_weight="0.5"/>
+    </LinearLayout>
 </RelativeLayout>

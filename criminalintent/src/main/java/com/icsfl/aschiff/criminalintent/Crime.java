@@ -7,13 +7,13 @@ import java.util.UUID;
 
 /**
  * Crime is the class that handles all of the details for a crime.
+ *
  * @author Alex Schiff
  * @version 1.0
  */
 public class Crime {
     private UUID mId;
     private String mTitle;
-    private String mDateString;
     private Date mDate;
     private boolean mSolved;
 
@@ -23,7 +23,6 @@ public class Crime {
     public Crime() {
         mDate = new Date();
         mId = UUID.randomUUID();
-        mDateString = (new DateFormat()).format("MM/dd/yyyy hh:mm", mDate).toString();
     }
 
     /**
@@ -57,12 +56,29 @@ public class Crime {
     }
 
     /**
-     * The date format here is "MM/dd/yyyy hh:mm".
+     * The date format here is "MMM dd, yyyy hh:mm a".
+     * For example, "Dec 21, 2010 10:00 PM".
      *
      * @return the date on which the Crime was committed.
      */
+    public String getFullDateString() {
+        return (new DateFormat()).format("MMM dd, yyyy hh:mm a", mDate).toString();
+    }
+
     public String getDateString() {
-        return mDateString;
+        return (new DateFormat()).format("MMM dd, yyyy", mDate).toString();
+    }
+
+    public String getTimeString() {
+        return (new DateFormat()).format("hh:mm a", mDate).toString();
+    }
+
+    public Date getDate() {
+        return mDate;
+    }
+
+    public void setDate(Date date) {
+        mDate = date;
     }
 
     /**
