@@ -62,15 +62,15 @@ public class Crime {
      * @return the date on which the Crime was committed.
      */
     public String getFullDateString() {
-        return (new DateFormat()).format("MMM dd, yyyy hh:mm a", mDate).toString();
+        return DateFormat.format("MMM dd, yyyy hh:mm a", mDate).toString();
     }
 
     public String getDateString() {
-        return (new DateFormat()).format("MMM dd, yyyy", mDate).toString();
+        return DateFormat.format("MMM dd, yyyy", mDate).toString();
     }
 
     public String getTimeString() {
-        return (new DateFormat()).format("hh:mm a", mDate).toString();
+        return DateFormat.format("hh:mm a", mDate).toString();
     }
 
     public Date getDate() {

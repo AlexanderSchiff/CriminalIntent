@@ -50,9 +50,9 @@ public class DatePickerFragment extends DialogFragment {
                     public void onDateChanged(DatePicker datePickerView, int year, int monthOfYear, int dayOfMonth) {
                         Calendar theCalendar = Calendar.getInstance();
                         theCalendar.setTime(mDate);
-                        theCalendar.set(theCalendar.YEAR, year);
-                        theCalendar.set(theCalendar.MONTH, monthOfYear);
-                        theCalendar.set(theCalendar.DAY_OF_MONTH, dayOfMonth);
+                        theCalendar.set(Calendar.YEAR, year);
+                        theCalendar.set(Calendar.MONTH, monthOfYear);
+                        theCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                         mDate = theCalendar.getTime();
                         getArguments().putSerializable(EXTRA_DATE, mDate);
                     }
