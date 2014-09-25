@@ -1,6 +1,8 @@
 package com.icsfl.aschiff.criminalintent;
 
 import android.text.format.DateFormat;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Date;
 import java.util.UUID;
@@ -12,6 +14,10 @@ import java.util.UUID;
  * @version 1.0
  */
 public class Crime {
+    private static final String JSON_ID = "id";
+    private static final String JSON_TITLE = "title";
+    private static final String JSON_SOLVED = "solved";
+    private static final String JSON_DATE = "date";
     private UUID mId;
     private String mTitle;
     private Date mDate;
@@ -21,8 +27,25 @@ public class Crime {
      * Class constructor currently sets date to be the time when the app is created.
      */
     public Crime() {
-        mDate = new Date();
-        mId = UUID.randomUUID();
+        setDate(new Date());
+        setId(UUID.randomUUID());
+    }
+
+    public Crime(JSONObject jsonObject) throws JSONException {
+        setId(UUID.fromString(jsonObject.getString(JSON_ID)));
+        if (jsonObject.has(JSON_TITLE))
+            setTitle(jsonObject.getString(JSON_TITLE));
+        setSolved(jsonObject.getBoolean(JSON_SOLVED));
+        setDate(jsonObject.getLong(JSON_DATE));
+    }
+
+    public JSONObject toJSON() throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(JSON_ID, mId.toString());
+        jsonObject.put(JSON_TITLE, mTitle);
+        jsonObject.put(JSON_SOLVED, mSolved);
+        jsonObject.put(JSON_DATE, mDate.getTime());
+        return jsonObject;
     }
 
     /**
@@ -39,6 +62,10 @@ public class Crime {
      */
     public UUID getId() {
         return mId;
+    }
+
+    private void setId(UUID id) {
+        mId = id;
     }
 
     /**
@@ -75,6 +102,10 @@ public class Crime {
 
     public Date getDate() {
         return mDate;
+    }
+
+    public void setDate(long longDate) {
+        mDate = new Date(longDate);
     }
 
     public void setDate(Date date) {

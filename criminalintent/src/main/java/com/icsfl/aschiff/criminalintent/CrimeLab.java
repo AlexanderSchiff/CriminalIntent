@@ -1,6 +1,7 @@
 package com.icsfl.aschiff.criminalintent;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -10,8 +11,11 @@ import java.util.UUID;
  * @version 1.0
  */
 public class CrimeLab {
+    private static final String TAG = "CrimeLab";
+    private static final String FILENAME = "crimes.json";
     private static CrimeLab sCrimeLab;
     private ArrayList<Crime> mCrimes;
+    private CriminalIntentJSONSerializer mSerializer;
     private Context mAppContext;
 
     /**
@@ -21,8 +25,14 @@ public class CrimeLab {
      * @param appContext sets CrimeLab's context to the input.
      */
     private CrimeLab(Context appContext) {
-        mAppContext = appContext;
-        mCrimes = new ArrayList<Crime>();
+        setAppContext(appContext);
+        setSerializer(new CriminalIntentJSONSerializer(mAppContext, FILENAME));
+        try {
+            setCrimes(mSerializer.loadCrimes());
+        } catch (Exception e) {
+            setCrimes(new ArrayList<Crime>());
+            Log.e(TAG, "Error loading crimes: ", e);
+        }
     }
 
     /**
@@ -37,12 +47,35 @@ public class CrimeLab {
         return sCrimeLab;
     }
 
+    private void setAppContext(Context appContext) {
+        mAppContext = appContext;
+    }
+
+    private void setSerializer(CriminalIntentJSONSerializer serializer) {
+        mSerializer = serializer;
+    }
+
     public void addCrime(Crime crime) {
         mCrimes.add(crime);
     }
 
+    public boolean saveCrimes() {
+        try {
+            mSerializer.saveCrimes(mCrimes);
+            Log.d(TAG, "crimes saved to file");
+            return true;
+        } catch (Exception e) {
+            Log.e(TAG, "error saving crimes: ", e);
+            return false;
+        }
+    }
+
     public ArrayList<Crime> getCrimes() {
         return mCrimes;
+    }
+
+    public void setCrimes(ArrayList<Crime> crimes) {
+        mCrimes = crimes;
     }
 
     public Crime getCrime(UUID id) {
