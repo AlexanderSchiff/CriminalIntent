@@ -23,16 +23,12 @@ public class CrimeLab {
     private CrimeLab(Context appContext) {
         mAppContext = appContext;
         mCrimes = new ArrayList<Crime>();
-        for (int i = 0; i < 10; i++) {
-            Crime crime = new Crime();
-            crime.setTitle("Crime #" + i);
-            mCrimes.add(crime);
-        }
     }
 
     /**
-     * @param context
-     * @return
+     * If there is no crimelab, this method creates one.
+     * @param context input context
+     * @return a Crimelab
      */
     public static CrimeLab getCrimeLab(Context context) {
         if (sCrimeLab == null) {
@@ -41,17 +37,14 @@ public class CrimeLab {
         return sCrimeLab;
     }
 
-    /**
-     * @return
-     */
+    public void addCrime(Crime crime) {
+        mCrimes.add(crime);
+    }
+
     public ArrayList<Crime> getCrimes() {
         return mCrimes;
     }
 
-    /**
-     * @param id
-     * @return
-     */
     public Crime getCrime(UUID id) {
         for (Crime crime : mCrimes) {
             if (crime.getId().equals(id))
