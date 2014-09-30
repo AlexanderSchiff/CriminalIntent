@@ -22,5 +22,7 @@
     <string name="delete_crime">Delete</string>
     <string name="empty_text">No crimes have been committed!</string>
     <string name="report_crime">Report a crime!</string>
+    <string name="title_crime">Crime title</string>
+    <string name="date_crime">Crime date</string>
 
 </resources>

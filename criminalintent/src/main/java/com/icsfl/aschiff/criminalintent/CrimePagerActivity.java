@@ -2,10 +2,10 @@ package com.icsfl.aschiff.criminalintent;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -14,11 +14,12 @@ import java.util.UUID;
  * @author Alex Schiff
  * @version 1.0
  */
-public class CrimePagerActivity extends FragmentActivity {
+public class CrimePagerActivity extends SherlockFragmentActivity {
     private ArrayList<Crime> mCrimes;
 
     /**
      *
+     * @param savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

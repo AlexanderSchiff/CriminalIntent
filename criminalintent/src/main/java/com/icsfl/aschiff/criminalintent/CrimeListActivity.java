@@ -1,14 +1,17 @@
 package com.icsfl.aschiff.criminalintent;
 
-import android.support.v4.app.Fragment;
+import com.actionbarsherlock.app.SherlockFragment;
 
 /**
  * @author Alex Schiff
  * @version 1.0
  */
 public class CrimeListActivity extends SingleFragmentActivity {
+    /**
+     * @return
+     */
     @Override
-    protected Fragment createFragment() {
+    protected SherlockFragment createFragment() {
         return new CrimeListFragment();
     }
 }

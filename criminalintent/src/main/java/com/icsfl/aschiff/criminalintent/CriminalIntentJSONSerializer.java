@@ -17,11 +17,21 @@ public class CriminalIntentJSONSerializer {
     private Context mContext;
     private String mFileName;
 
+    /**
+     * @param context
+     * @param fileName
+     */
     public CriminalIntentJSONSerializer(Context context, String fileName) {
         mContext = context;
         mFileName = fileName;
     }
 
+    /**
+     *
+     * @return
+     * @throws IOException
+     * @throws JSONException
+     */
     public ArrayList<Crime> loadCrimes() throws IOException, JSONException {
         ArrayList<Crime> crimes = new ArrayList<Crime>();
         BufferedReader bufferedReader = null;
@@ -42,6 +52,12 @@ public class CriminalIntentJSONSerializer {
         return crimes;
     }
 
+    /**
+     *
+     * @param crimes
+     * @throws JSONException
+     * @throws IOException
+     */
     public void saveCrimes(ArrayList<Crime> crimes) throws JSONException, IOException {
         JSONArray array = new JSONArray();
         for (Crime crime : crimes)

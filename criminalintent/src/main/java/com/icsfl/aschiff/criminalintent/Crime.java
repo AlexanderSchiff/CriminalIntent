@@ -31,6 +31,10 @@ public class Crime {
         setId(UUID.randomUUID());
     }
 
+    /**
+     * @param jsonObject
+     * @throws JSONException
+     */
     public Crime(JSONObject jsonObject) throws JSONException {
         setId(UUID.fromString(jsonObject.getString(JSON_ID)));
         if (jsonObject.has(JSON_TITLE))
@@ -39,6 +43,11 @@ public class Crime {
         setDate(jsonObject.getLong(JSON_DATE));
     }
 
+    /**
+     *
+     * @return
+     * @throws JSONException
+     */
     public JSONObject toJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(JSON_ID, mId.toString());
@@ -92,24 +101,44 @@ public class Crime {
         return DateFormat.format("MMM dd, yyyy hh:mm a", mDate).toString();
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDateString() {
         return DateFormat.format("MMM dd, yyyy", mDate).toString();
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTimeString() {
         return DateFormat.format("hh:mm a", mDate).toString();
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getDate() {
         return mDate;
     }
 
-    public void setDate(long longDate) {
-        mDate = new Date(longDate);
-    }
-
+    /**
+     *
+     * @param date
+     */
     public void setDate(Date date) {
         mDate = date;
+    }
+
+    /**
+     *
+     * @param longDate
+     */
+    public void setDate(long longDate) {
+        mDate = new Date(longDate);
     }
 
     /**

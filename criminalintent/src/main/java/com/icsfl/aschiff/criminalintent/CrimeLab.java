@@ -18,12 +18,6 @@ public class CrimeLab {
     private CriminalIntentJSONSerializer mSerializer;
     private Context mAppContext;
 
-    /**
-     * Initializes the CrimeLab. We set the private variable mAppContext to be the input
-     * and generate an array list of Crimes.
-     *
-     * @param appContext sets CrimeLab's context to the input.
-     */
     private CrimeLab(Context appContext) {
         setAppContext(appContext);
         setSerializer(new CriminalIntentJSONSerializer(mAppContext, FILENAME));
@@ -55,10 +49,24 @@ public class CrimeLab {
         mSerializer = serializer;
     }
 
+    /**
+     * @param crime
+     */
     public void addCrime(Crime crime) {
         mCrimes.add(crime);
     }
 
+    /**
+     *
+     * @param crime
+     */
+    public void deleteCrime(Crime crime) {
+        mCrimes.remove(crime);
+    }
+
+    /**
+     * @return
+     */
     public boolean saveCrimes() {
         try {
             mSerializer.saveCrimes(mCrimes);
@@ -70,14 +78,27 @@ public class CrimeLab {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Crime> getCrimes() {
         return mCrimes;
     }
 
+    /**
+     *
+     * @param crimes
+     */
     public void setCrimes(ArrayList<Crime> crimes) {
         mCrimes = crimes;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Crime getCrime(UUID id) {
         for (Crime crime : mCrimes) {
             if (crime.getId().equals(id))

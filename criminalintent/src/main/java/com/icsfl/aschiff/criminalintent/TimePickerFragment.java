@@ -6,18 +6,28 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.widget.TimePicker;
+import com.actionbarsherlock.app.SherlockDialogFragment;
 
 import java.util.Calendar;
 import java.util.Date;
 
-public class TimePickerFragment extends DialogFragment {
+/**
+ *
+ */
+public class TimePickerFragment extends SherlockDialogFragment {
+    /**
+     *
+     */
     public static final String EXTRA_TIME = "com.icsfl.aschiff.criminalintent.time";
 
     private Date mTime;
 
+    /**
+     * @param date
+     * @return
+     */
     public static TimePickerFragment newInstance(Date date) {
         Bundle args = new Bundle();
         args.putSerializable(EXTRA_TIME, date);
@@ -34,6 +44,11 @@ public class TimePickerFragment extends DialogFragment {
         }
     }
 
+    /**
+     *
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mTime = (Date) getArguments().getSerializable(EXTRA_TIME);
@@ -41,7 +56,7 @@ public class TimePickerFragment extends DialogFragment {
         calendar.setTime(mTime);
         int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
-        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_time, null);
+        View view = getSherlockActivity().getLayoutInflater().inflate(R.layout.dialog_time, null);
         TimePicker timePicker = (TimePicker) view.findViewById(R.id.dialog_time_picker_time);
         timePicker.setCurrentHour(hourOfDay);
         timePicker.setCurrentMinute(minute);
@@ -57,7 +72,7 @@ public class TimePickerFragment extends DialogFragment {
                 getArguments().putSerializable(EXTRA_TIME, mTime);
             }
         });
-        return new AlertDialog.Builder(getActivity()).setView(view).setTitle(R.string.time_picker_title)
+        return new AlertDialog.Builder(getSherlockActivity()).setView(view).setTitle(R.string.time_picker_title)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

@@ -5,19 +5,18 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import com.actionbarsherlock.app.SherlockFragment;
 
 import java.util.Date;
 import java.util.UUID;
@@ -28,7 +27,7 @@ import java.util.UUID;
  * @author Alex Schiff
  * @version 1.0
  */
-public class CrimeFragment extends Fragment {
+public class CrimeFragment extends SherlockFragment {
     /**
      * EXTRA_CRIME_ID is a static String. I am not exactly sure why it is necessary.
      */
@@ -63,17 +62,23 @@ public class CrimeFragment extends Fragment {
     }
 
     /**
-     * When the app is created, initialize the correct associated Crime.
+     *
+     * @param savedInstanceState
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setCrime(CrimeLab.getCrimeLab(getActivity()).getCrime((UUID) getArguments().getSerializable(EXTRA_CRIME_ID)));
+        setCrime(CrimeLab.getCrimeLab(getSherlockActivity())
+                .getCrime((UUID) getArguments().getSerializable(EXTRA_CRIME_ID)));
         setHasOptionsMenu(true);
     }
 
     /**
      *
+     * @param inflater
+     * @param parent
+     * @param savedInstanceState
+     * @return
      */
     @TargetApi(11)
     @Override
@@ -81,8 +86,9 @@ public class CrimeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_crime, parent, false);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB &&
-                getActivity().getActionBar() != null && NavUtils.getParentActivityName(getActivity()) != null)
-            getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+                getSherlockActivity().getSupportActionBar() != null &&
+                NavUtils.getParentActivityName(getSherlockActivity()) != null)
+            getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mTitleField = (EditText) view.findViewById(R.id.crime_title);
         mTitleField.setText(mCrime.getTitle());
@@ -107,7 +113,7 @@ public class CrimeFragment extends Fragment {
         mDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentManager fragmentManager = getSherlockActivity().getSupportFragmentManager();
                 DatePickerFragment dialog = DatePickerFragment.newInstance(mCrime.getDate());
                 dialog.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
                 dialog.show(fragmentManager, DIALOG_DATE);
@@ -118,7 +124,7 @@ public class CrimeFragment extends Fragment {
         mTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentManager fragmentManager = getSherlockActivity().getSupportFragmentManager();
                 TimePickerFragment dialog = TimePickerFragment.newInstance(mCrime.getDate());
                 dialog.setTargetFragment(CrimeFragment.this, REQUEST_TIME);
                 dialog.show(fragmentManager, DIALOG_TIME);
@@ -142,28 +148,38 @@ public class CrimeFragment extends Fragment {
             mTimeButton.setText(savedInstanceState.getStringArray(KEY_INDEX)[1]);
         }
 
-
         return view;
     }
 
+    /**
+     * @param item
+     * @return
+     */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                if (NavUtils.getParentActivityName(getActivity()) != null)
-                    NavUtils.navigateUpFromSameTask(getActivity());
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+    public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            if (NavUtils.getParentActivityName(getSherlockActivity()) != null)
+                NavUtils.navigateUpFromSameTask(getSherlockActivity());
+            return true;
+        } else
+            return super.onOptionsItemSelected(item);
     }
 
+    /**
+     *
+     */
     @Override
     public void onPause() {
         super.onPause();
-        CrimeLab.getCrimeLab(getActivity()).saveCrimes();
+        CrimeLab.getCrimeLab(getSherlockActivity()).saveCrimes();
     }
 
+    /**
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
@@ -178,7 +194,8 @@ public class CrimeFragment extends Fragment {
     }
 
     /**
-     * Save the date associated with the date button.
+     *
+     * @param savedInstanceState
      */
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {

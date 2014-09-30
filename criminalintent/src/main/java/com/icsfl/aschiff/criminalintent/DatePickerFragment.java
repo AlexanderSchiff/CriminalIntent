@@ -6,9 +6,9 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.widget.DatePicker;
+import com.actionbarsherlock.app.SherlockDialogFragment;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -16,11 +16,18 @@ import java.util.Date;
 /**
  * A simple {@link android.support.v4.app.DialogFragment} subclass.
  */
-public class DatePickerFragment extends DialogFragment {
+public class DatePickerFragment extends SherlockDialogFragment {
+    /**
+     *
+     */
     public static final String EXTRA_DATE = "com.icsfl.aschiff.criminalintent.date";
 
     private Date mDate;
 
+    /**
+     * @param date
+     * @return
+     */
     public static DatePickerFragment newInstance(Date date) {
         Bundle args = new Bundle();
         args.putSerializable(EXTRA_DATE, date);
@@ -37,12 +44,17 @@ public class DatePickerFragment extends DialogFragment {
         }
     }
 
+    /**
+     *
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mDate = (Date) getArguments().getSerializable(EXTRA_DATE);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(mDate);
-        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_date, null);
+        View view = getSherlockActivity().getLayoutInflater().inflate(R.layout.dialog_date, null);
         DatePicker datePicker = (DatePicker) view.findViewById(R.id.dialog_date_picker_date);
         datePicker.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
                 new DatePicker.OnDateChangedListener() {
@@ -57,7 +69,7 @@ public class DatePickerFragment extends DialogFragment {
                         getArguments().putSerializable(EXTRA_DATE, mDate);
                     }
                 });
-        return new AlertDialog.Builder(getActivity()).setView(view).setTitle(R.string.date_picker_title)
+        return new AlertDialog.Builder(getSherlockActivity()).setView(view).setTitle(R.string.date_picker_title)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
